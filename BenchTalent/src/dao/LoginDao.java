@@ -28,13 +28,9 @@ public class LoginDao {
 			return true;
 		}
 		
-		
 	} catch (ClassNotFoundException | SQLException e) {
 		e.printStackTrace();
 	}
 		return false;
-	
-	
-	
 	}
 }

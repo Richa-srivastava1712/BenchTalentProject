@@ -55,7 +55,7 @@ public class AddProjectServlet extends HttpServlet {
 	 
 	   
 	  int count =ps.executeUpdate();
-	  System.out.println("Number of Rows affected : "+count);
+	  System.out.println("Number of Rows affected : " + count);
 	  
 	 
 		
@@ -72,7 +72,7 @@ public class AddProjectServlet extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect("index.html");
+		response.sendRedirect("index.jsp");
 	}	
 }
 
