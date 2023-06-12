@@ -23,7 +23,7 @@
      %>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.jsp">WPC SPOC </a>
+            <a class="navbar-brand ps-3" href="benchtalentindex.jsp">Bench Talent</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -37,10 +37,7 @@
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
-                        <!-- <li><hr class="dropdown-divider" /></li> -->
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">                     
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logoutServlet">Logout</a></li>
                     </ul>
                 </li>
@@ -56,33 +53,26 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading"><!-- Interface --></div>
-                            <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Layouts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a> -->
+                            </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <!-- <a class="nav-link" href="layout-static.html">Static Navigation</a> -->
-                                     <a class="nav-link" href="AddProject.jsp">Add Project</a>
-                                     <a class="nav-link" href="DeleteProject.jsp">Delete Project</a>
+                                    <!-- <a class="nav-link" href="layout-static.html">Static Navigation</a> -->                                     
                                     <!-- <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a> -->
                                 </nav>
-                            </div>
-                            <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a> -->                           
-                            <div class="sb-sidenav-menu-heading"> Handle Projects </div>
-                            <a class="nav-link" href="AddProject.jsp">
+                            </div>                           
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="Resume.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Add Project
+                                Add Resume
                             </a>
-                            <a class="nav-link" href="DeleteProject.jsp">
+                            <a class="nav-link" href="tables.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Delete Project
+                                Tables
                             </a>
                         </div>
                     </div>
@@ -117,16 +107,16 @@
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
-                            </div>
-                           <div class="mb-4"></div> <!-- Add this div for spacing -->
-                        </div>                        
+                            </div>                           
+                        </div> 
+                        <div class="mb-4"></div> <!-- Add this div for spacing -->                       
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Project List
                             </div>
                             <div class="card-body">
-                              <form>
+                              <form action ="SendProjectToSpocServlet" method ="post">
                                 <table id="datatablesSimple">
                                 <%@ page import="dao.ListAllProjectDao" %>
 								<%@ page import="model.Project" %>
@@ -142,11 +132,11 @@
                                         	<th></th>
                                             <th>Project ID</th>
                                             <th>Req No</th>
-                                            <th>Joining Level</th>
+                                            <th>Joining_Level</th>
                                             <th>Initiator</th>
                                             <th>Pending With</th>
                                             <th>Primary Skill</th>
-                                            <th>Secondary_Skill</th>
+                                            <th>Secondary Skill</th>
                                             <th>Customer</th>
                                             <th>Band</th>
                                             <th>Sub-Band</th>
@@ -159,11 +149,11 @@
                                             <th>Personal_Area</th>
                                             <th>Personal_SubArea</th>                                           
                                         </tr>
-                                    </thead>                                  
+                                    </thead>                            
                                     <tbody>
                                      <% for (Project project : projects) { %>                                    
-                                        <tr>
-                                            <td><input type="checkbox" /></td>
+                                        <tr>                                        
+                                            <td><input type="checkbox" name="selectedProjects" value="<%= project.getProjectID() %>"/></td>
                                             <td><%= project.getProjectID() %></td>
             								<td><%= project.getReqNo() %></td>
             								<td><%= project.getJoining_Level_4() %></td>
@@ -186,9 +176,9 @@
                                         <% } %>                                    
                                     </tbody>
                                 </table>
-                                <!-- <div style="text-align: center;">
+                                <div style="text-align: center;">
                 					<button type="submit" class="btn btn-primary">Submit</button>
-         						</div> -->
+         						</div>
                                 </form>
                             </div>
                         </div>
@@ -197,7 +187,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; BenchTalent 2023</div>
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
